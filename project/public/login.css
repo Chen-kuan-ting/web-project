@@ -1,4 +1,4 @@
-/* 新增橘色背景 */
+/* 新增背景 */
 body::before {
     content: "";
     position: fixed;
@@ -6,9 +6,14 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgb(255, 166, 1);
+    background-color: rgb(255, 255, 255);
     z-index: -1;
     /* 設為-1，使其在內容之後 */
+}
+
+/* 調整帳號和密碼外框線條 */
+.form-control {
+    border: 2px solid #333;
 }
 
 /* 調整外框 */
@@ -16,7 +21,7 @@ body::before {
     border: 5px solid black;
     padding: 50px;
     border-radius: 50px;
-    background-color: rgb(122, 218, 228);
+    background-color: rgba(255, 254, 254, 0.814);
     width: 500px;
     /* 修改為您想要的固定寬度 */
     height: 400px;
@@ -27,13 +32,21 @@ body::before {
     background-color: rgb(40, 226, 40);
     color: white;
     /* 設置字體顏色為白色 */
-    width: 70px;
+    width: 100%;
     height: 40px;
+    margin-bottom: 10px;
 }
 
 #login:hover {
-    background-color: rgba(29, 117, 29, 0.734);
+    background-color: rgba(34, 155, 34, 0.734);
     /* 碰觸時改變成深綠色 */
+}
+
+/* 調整建立會員按鈕 */
+.btn-primary[name="button"][value="register"] {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 10px;
 }
 
 h1 {
@@ -44,4 +57,8 @@ h1 {
 
 #accountHelp {
     color: red;
+}
+
+.btn.btn-secondary {
+    border-radius: 0;
 }
