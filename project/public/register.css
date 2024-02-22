@@ -1,4 +1,4 @@
-/* 新增橘色背景 */
+/* 新增背景 */
 body::before {
     content: "";
     position: fixed;
@@ -6,7 +6,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgb(255, 166, 1);
+    background-color: rgb(255, 255, 255);
     z-index: -1;
     /* 設為-1，使其在內容之後 */
 }
@@ -14,20 +14,17 @@ body::before {
 /* 調整外框 */
 .custom-border {
     border: 5px solid black;
-    padding: 50px;
-    border-radius: 30px;
+    padding: 20px 40px 5px;
+    border-radius: 50px;
     /* 圓弧邊框 */
-    background-color: rgba(200, 215, 216, 0.81);
+    background-color: rgba(255, 254, 254, 0.814);
     position: relative;
-    /* width: 550px;  */
-    /* height: 450px; */
 }
 
 /* 調整送出按鈕位置 */
 .submit-button {
-    position: absolute;
-    bottom: 10px;
-    right: 20px;
+    text-align: center; /* 文字置中 */
+    margin-top: 10px; /* 調整上方的 margin 以置中 */
 }
 
 h1 {
@@ -36,6 +33,33 @@ h1 {
     /* 調整上邊距 */
 }
 
+/* 調整輸入框和標籤的樣式 */
+.form-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3px; /* 增加下邊距，使名稱和輸入框間距離 */
+}
+
+.required-symbol {
+    color: red;
+    margin-left: 1px; /* 調整星號與標籤之間的距離 */
+}
+
+.form-control {
+    width: 100%; /* 讓輸入框佔據整個寬度 */
+    margin-bottom: 15px; /* 增加下邊距，使輸入框之間距離 */
+    border-width: 2px; /* 調整輸入框框線的寬度 */
+    border-color: #000;
+}
+
 #accountHelp {
     color: red;
+}
+
+.btn.btn-secondary.btn-square {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 999; /* 保證在最上層 */
+    border-radius: 0;
 }

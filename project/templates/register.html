@@ -11,39 +11,41 @@
     <title>建立會員</title>
 </head>
 <body class="d-flex align-items-center justify-content-center flex-column">
-    <h1 class="mb-4">建立會員</h1>
+  <!-- 新增回上一頁按鈕 -->
+  <a href="/login" class="btn btn-secondary btn-square">返回上一頁</a>  
+  <h1 class="mb-4">建立會員</h1>
     <form action="/signup" method="POST" class="mb-3">
       <div class="container my-5 custom-border">
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="exampleInputaccount1" class="form-label" style="font-size: 25px;">帳號</label>
+        <div class="row">
+          <div class="col-12">
+            <label for="exampleInputaccount1" class="form-label" style="font-size: 25px;"><span class="required-symbol">*</span>帳號</label>
             <input name="account" type="account" class="form-control" id="account" placeholder="Account" required/>
           </div>
-          <div class="col-md-6">
-            <label for="exampleInputPassword1" class="form-label" style="font-size: 25px;">密碼</label>
+          <div class="col-12">
+            <label for="exampleInputPassword1" class="form-label" style="font-size: 25px;"><span class="required-symbol">*</span>密碼</label>
             <input name="password" type="password" class="form-control" id="password" placeholder="Password" required/>
             <div id="passwordHelp" class="form-text"></div>
           </div>
         </div>
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="exampleInputName1" class="form-label" style="font-size: 25px;">姓名</label>
+        <div class="row">
+          <div class="col-12">
+            <label for="exampleInputName1" class="form-label" style="font-size: 25px;"><span class="required-symbol">*</span>姓名</label>
             <input name="nickname" type="name" class="form-control" id="name" placeholder="Name" required/>
           </div>
-          <div class="col-md-6">
-            <label for="exampleInputPhone1" class="form-label" style="font-size: 25px;">電話</label>
+          <div class="col-12">
+            <label for="exampleInputPhone1" class="form-label" style="font-size: 25px;"><span class="required-symbol">*</span>電話</label>
             <input name="phone" type="phone" class="form-control" id="phone" placeholder="Phone" required/>
           </div>
         </div>
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="exampleInputEmail1" class="form-label" style="font-size: 25px;">電子郵件</label>
+        <div class="row">
+          <div class="col-12">
+            <label for="exampleInputEmail1" class="form-label" style="font-size: 25px;"><span class="required-symbol">*</span>電子郵件</label>
             <input name="email" type="email" class="form-control" id="email" placeholder="Email" required/>
-          </div>
-          <div class="col-md-6">
-            <label for="exampleInputaddress1" class="form-label" style="font-size: 25px;">地址</label>
-            <input name="address" type="address" class="form-control" id="address" placeholder="Address" required/>
             <div id="accountHelp" class="form-text" >{{ error }}</div>
+          </div>
+          <div class="col-12">
+            <label for="exampleInputaddress1" class="form-label" style="font-size: 25px;">地址</label>
+            <input name="address" type="address" class="form-control" id="address" placeholder="Address"/>
           </div>
         </div>
         <div class="submit-button">
