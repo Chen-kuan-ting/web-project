@@ -209,7 +209,11 @@ def signout():
     del session["email"]
     return redirect("/")
 
-
+# 添加「忘記密碼」頁面的路由
+@app.route("/forgot-password")
+def forgot_password():
+    # 添加處理忘記密碼功能的邏輯
+    return render_template("forgot-password.html")
 
 
 
