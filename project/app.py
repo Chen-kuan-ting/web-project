@@ -234,7 +234,7 @@ def forgot_password():
             return redirect(url_for("reset_password", reset_token=reset_token))
         else:
             # 如果找不到使用者，將錯誤訊息傳遞到模板中
-            return render_template("forgot-password.html", error="該電子郵件未註冊。")
+            return render_template("forgot-password.html", error="該電子郵件尚未註冊。")
 
     return render_template("forgot-password.html")
 
