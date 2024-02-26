@@ -210,10 +210,41 @@ def signout():
     return redirect("/")
 
 # 添加「忘記密碼」頁面的路由
-@app.route("/forgot-password")
+@app.route("/forgot-password", methods=['GET', 'POST'])
 def forgot_password():
-    # 添加處理忘記密碼功能的邏輯
+    if request.method == 'POST':
+        email = request.form.get('email')
+
+        # 在資料庫中查找使用者
+        user = db.user.find_one({"email": email})
+
+        if user:
+            # 在這裡你可以生成一個重設密碼的 token，並將其存儲到資料庫中
+            # 同時，你可以發送包含該 token 的郵件給用戶，讓他們進行密碼重設
+            # 這裡省略具體的 token 生成和郵件發送邏輯，需要自行實現
+
+            # 在實際應用中，建議使用安全的方式生成 token，例如 Flask-Security 或其它驗證套件
+            # 示範中直接使用 email 作為 token，實際應用中應該使用更複雜的方式
+            reset_token = email
+
+            # 存儲 reset_token 到資料庫
+            db.user.update_one({"email": email}, {"$set": {"reset_token": reset_token}})
+
+            # 將用戶重定向到輸入新密碼的頁面，並將 reset_token 傳遞過去
+            return redirect(url_for("reset_password", reset_token=reset_token))
+        else:
+            # 如果找不到使用者，將錯誤訊息傳遞到模板中
+            return render_template("forgot-password.html", error="該電子郵件未註冊。")
+
     return render_template("forgot-password.html")
+
+# 重設密碼頁面的路由
+@app.route("/reset-password/<reset_token>", methods=['GET', 'POST'])
+def reset_password(reset_token):
+    # 在這裡實現重設密碼的相關邏輯
+    # 你可以檢查 reset_token 是否有效，以及進行密碼更新的操作
+    # 示範中直接將 reset_token 傳遞到模板中，實際應用中需要更複雜的邏輯
+    return render_template("reset-password.html", reset_token=reset_token)
 
 
 

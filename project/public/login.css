@@ -24,7 +24,7 @@ body::before {
     background-color: rgba(255, 254, 254, 0.814);
     width: 500px;
     /* 修改為您想要的固定寬度 */
-    height: 400px;
+    height: 430px;
 }
 
 /* 設置按鈕登入 */
