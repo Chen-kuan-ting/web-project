@@ -219,12 +219,8 @@ def forgot_password():
         user = db.user.find_one({"email": email})
 
         if user:
-            # 在這裡你可以生成一個重設密碼的 token，並將其存儲到資料庫中
-            # 同時，你可以發送包含該 token 的郵件給用戶，讓他們進行密碼重設
-            # 這裡省略具體的 token 生成和郵件發送邏輯，需要自行實現
-
-            # 在實際應用中，建議使用安全的方式生成 token，例如 Flask-Security 或其它驗證套件
-            # 示範中直接使用 email 作為 token，實際應用中應該使用更複雜的方式
+            # 在這裡生成一個重設密碼的 token，並將其存儲到資料庫中
+            # 直接使用 email 作為 token，應該使用更複雜的方式
             reset_token = email
 
             # 存儲 reset_token 到資料庫
@@ -238,13 +234,27 @@ def forgot_password():
 
     return render_template("forgot-password.html")
 
+import re
 # 重設密碼頁面的路由
 @app.route("/reset-password/<reset_token>", methods=['GET', 'POST'])
 def reset_password(reset_token):
-    # 在這裡實現重設密碼的相關邏輯
-    # 你可以檢查 reset_token 是否有效，以及進行密碼更新的操作
-    # 示範中直接將 reset_token 傳遞到模板中，實際應用中需要更複雜的邏輯
+    if request.method == 'POST':
+        # 取得新密碼和確認新密碼
+        new_password = request.form.get('new_password')
+        confirm_new_password = request.form.get('confirm_new_password')
+
+        if len(new_password) >= 6 and re.search('[a-zA-Z]', new_password):
+            if new_password == confirm_new_password:
+                db.user.update_one({"reset_token": reset_token}, {"$set": {"password": new_password}})
+                db.user.update_one({"reset_token": reset_token}, {"$unset": {"reset_token": ""}})
+            return redirect(url_for("login"))
+        # 如果密碼不符合條件，你可能想要在這裡顯示錯誤訊息
+        error = "密碼長度至少6個字元,且包含一個英文字母。"
+        return render_template("reset-password.html", reset_token=reset_token, error=error)
+
+    # 如果是 GET 請求，或者 POST 請求中密碼更新失敗，都返回 reset-password.html
     return render_template("reset-password.html", reset_token=reset_token)
+
 
 
 
