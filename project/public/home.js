@@ -1,3 +1,23 @@
+document.addEventListener("DOMContentLoaded", function () {
+    // 獲取登出按鈕和登入按鈕
+    var homeSignoutButton = document.getElementById("home_signout");
+    var homeLoginButton = document.getElementById("home_login");
+  
+    // 如果登出按鈕不存在，顯示登入按鈕
+    if (!homeSignoutButton) {
+      homeLoginButton.style.display = "inline-block";
+    } else {
+      // 登出按鈕存在，隱藏登入按鈕，並為登出按鈕添加點擊事件監聽器
+      homeLoginButton.style.display = "none";
+  
+      homeSignoutButton.addEventListener("click", function () {
+        // 點擊登出按鈕後，隱藏登出按鈕，顯示登入按鈕
+        homeSignoutButton.style.display = "none";
+        homeLoginButton.style.display = "inline-block";
+      });
+    }
+  });  
+
 // 設定數量不能為0或負
 function validateQuantity(inputId) {
     var quantityInput = document.getElementById(inputId);
