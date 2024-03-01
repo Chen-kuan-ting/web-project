@@ -44,6 +44,19 @@ document.getElementById("send").addEventListener("click", function () {
     if (!isValid) {
         alert("請填寫完整所有資料！");
     } else {
-        alert("會員建立成功");
+        // 發送 Ajax 請求到後端,fetch API 進行網路請求,發送一個 HTTP GET 請求到指定的 URL 
+        fetch("/register_error")
+            .then(response => response.text())                      // 後端可能返回純文字信息而不是 JSON
+            .then(data => {                                         //這裡的 data 包含從後端接收到的文字內容
+                // 檢查後端回應中是否有錯誤訊息
+                if (data.includes("帳號或電子郵件已註冊過")) {        //includes 方法返回一個布林值,查看後端是否有包含這字串,不用完整的沒關係
+                    alert("帳號或電子郵件已註冊過，請重新輸入!");      //有的話顯示
+                } else {
+                    alert("會員建立成功");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
 });
