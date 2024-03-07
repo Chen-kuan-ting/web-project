@@ -41,22 +41,37 @@ document.getElementById("send").addEventListener("click", function () {
     ).every(function (input) {
         return input.value.trim() !== "";
     });
+    
     if (!isValid) {
         alert("請填寫完整所有資料！");
     } else {
-        // 發送 Ajax 請求到後端,fetch API 進行網路請求,發送一個 HTTP GET 請求到指定的 URL 
-        fetch("/register_error")
-            .then(response => response.text())                      // 後端返回純文字信息而不是 JSON,指示將回應視為純文字
-            .then(data => {                                         //這裡的 data 包含從後端接收到的文字內容
-                // 檢查後端回應中是否有錯誤訊息
-                if (data.includes("帳號或電子郵件已註冊過")) {        //includes 方法返回一個布林值,查看後端是否有包含這字串,不用完整的沒關係
-                    alert("帳號或電子郵件已註冊過，請重新輸入!");      //有的話顯示
-                } else {
-                    alert("會員建立成功");
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+        var email = document.getElementById("email").value.trim();
+        var account = document.getElementById("account").value.trim();
+        
+        // 創建一個 JSON 物件，包含要發送到後端的數據
+        var data = {
+            email: email,
+            account: account
+        };
+
+        // 發送 POST 請求
+        fetch("/check-registration", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.isRegistered) {
+                alert("此電子郵件或帳號已註冊過！");
+            } else {
+                alert("會員建立成功");
+                // 在這裡可以繼續執行註冊的相關操作
+            }
+        })
+        .catch(error => console.error("發生錯誤：", error));
     }
 });
+

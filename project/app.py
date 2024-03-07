@@ -176,6 +176,30 @@ def signup():
     })
     return redirect("/login")
 
+# 新增的檢查註冊路由
+@app.route("/check-registration", methods=["POST"])
+def check_registration():
+    data = request.json
+    email = data.get("email")
+    account = data.get("account")
+    
+    # 根據接收到的資料處理資料庫
+    collection = db.user
+
+    # 檢查是否有相同資料
+    result = collection.find_one({
+        "$or":[
+            {"account":account},
+            {"email":email}
+        ]
+    })
+    
+    # 返回結果
+    if result is not None:
+        return jsonify({"isRegistered": True})
+    else:
+        return jsonify({"isRegistered": False})
+
 # 登入
 @app.route("/signin", methods=["POST"]) 
 def signin():
