@@ -179,9 +179,11 @@ def signup():
 # 新增的檢查註冊路由
 @app.route("/check-registration", methods=["POST"])
 def check_registration():
+    # 前端使用 Fetch API 將帳號和電子郵件以 JSON 格式發送到後端
     data = request.json
     email = data.get("email")
     account = data.get("account")
+    # data.get() 方法用於從字典中獲取指定鍵對應的值，如果該鍵不存在則返回 None。
     
     # 根據接收到的資料處理資料庫
     collection = db.user
@@ -196,9 +198,9 @@ def check_registration():
     
     # 返回結果
     if result is not None:
-        return jsonify({"isRegistered": True})
+        return jsonify({"isRegistered": True})  #表示該用戶已註冊
     else:
-        return jsonify({"isRegistered": False})
+        return jsonify({"isRegistered": False})  #表示該用戶尚未註冊
 
 # 登入
 @app.route("/signin", methods=["POST"]) 

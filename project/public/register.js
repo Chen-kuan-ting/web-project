@@ -54,21 +54,20 @@ document.getElementById("send").addEventListener("click", function () {
             account: account
         };
 
-        // 發送 POST 請求
+        // 發送 POST 請求,第一個參數是請求的 URL，第二個參數是一個配置對象，包含請求的詳細參數，如方法、標頭和主體,並將 JSON 格式的資料 data 作為主體發送到後端。
         fetch("/check-registration", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data)      //data 物件轉換為 JSON 字符串，以便將其作為 POST 請求的主體(body)發送到後端。這樣後端就能夠解析 JSON 格式的數據，並從中提取出用戶提交的電子郵件和帳號資料進行處理。
         })
-        .then(response => response.json())
+        .then(response => response.json())      //.then() 方法用於定義當前一個 Promise 成功時的回調函數，這裡的回調函數將返回的響應轉換為 JSON 格式。
         .then(result => {
             if (result.isRegistered) {
                 alert("此電子郵件或帳號已註冊過！");
             } else {
                 alert("會員建立成功");
-                // 在這裡可以繼續執行註冊的相關操作
             }
         })
         .catch(error => console.error("發生錯誤：", error));
